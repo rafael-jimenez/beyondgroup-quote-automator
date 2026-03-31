@@ -1,3 +1,11 @@
+// --- CONFIGURATION / ASSUMPTIONS ---
+const CREW_SIZE = 2;
+const HOURS_PER_DAY = 10;
+const FUEL_RATE = 0.75; 
+const PAYROLL_BURDEN = 1.20; 
+const WASTE_FACTOR = 1.12; 
+const ESCALATION = 1.04; 
+
 function openChat(event) {
     if (event) event.stopPropagation(); 
     const box = document.getElementById("chat-box");
@@ -69,33 +77,56 @@ function calculate() {
         return;
     }
 
-    // BRIEF FORMULAS
+    // 1. MATERIAL CALC (MASTER FORMULA)
     const rawLbs = v * 1.308 * 100;
-    const billableLbs = rawLbs; 
-    const totalLbsWithWaste = rawLbs * 1.12; 
+    const totalLbsWithWaste = rawLbs * WASTE_FACTOR; 
+    const sets = Math.ceil(totalLbsWithWaste / 1000);
 
-    // CLIENT REVENUE
-    const foamRev = billableLbs * 13;
+    // 2. CLIENT REVENUE
+    const foamRev = rawLbs * 13; // Charged on raw lbs
     const mobCharge = 2200;
     const total2026 = foamRev + mobCharge;
-    const total2027 = total2026 * 1.04;
+    const total2027 = total2026 * ESCALATION;
 
-    // INTERNAL COST
-    const sets = Math.ceil(totalLbsWithWaste / 1000);
+    // 3. INTERNAL COST BUILD (ITEMIZED)
     const materialCost = sets * 2300;
-    const labor = (2 * 10 * d * 40) * 1.20; 
-    const travel = ((d - 1) * 200) + (d * 150) + (dist * 2 * 0.75);
-    const fixedCosts = 1250; 
-    const internalTotal = materialCost + labor + travel + fixedCosts;
+    const labor = (CREW_SIZE * HOURS_PER_DAY * d * 40) * PAYROLL_BURDEN; 
+    
+    // Travel Breakdown
+    const hotel = (d - 1) * 200;
+    const food = d * (CREW_SIZE * 75);
+    const fuel = (dist * 2) * FUEL_RATE;
+    const travelTotal = hotel + food + fuel;
 
-    document.getElementById('out-rev').innerText = "$" + foamRev.toLocaleString(undefined, {minimumFractionDigits: 2});
+    // Fixed Costs
+    const fixedTotal = 150 + 300 + 300 + 500; // PPE + Maint + Misc + Overhead
+    const internalTotal = materialCost + labor + travelTotal + fixedTotal;
+
+    // 4. MARGIN ANALYSIS
+    const profit = total2026 - internalTotal;
+    const margin = (profit / total2026) * 100;
+
+    // 5. CLIENT CARD DISPLAY
+    document.getElementById('out-rev').innerHTML = 
+        `$${foamRev.toLocaleString(undefined, {minimumFractionDigits: 2})} <br>
+         <small style="font-size:9px; color:#777; font-weight:400;">(${v}m³ × 1.308 × 100 = ${Math.round(rawLbs)} lbs)</small>`;
+    
     document.getElementById('out-total').innerText = "$" + total2026.toLocaleString(undefined, {minimumFractionDigits: 2});
     document.getElementById('out-2027').innerText = "$" + total2027.toLocaleString(undefined, {minimumFractionDigits: 2});
     
-    document.getElementById('out-drums').innerText = sets + " Set(s) (" + Math.round(totalLbsWithWaste) + " lbs)";
-    document.getElementById('out-labor').innerText = "$" + labor.toLocaleString();
-    document.getElementById('out-travel').innerText = "$" + travel.toLocaleString();
-    document.getElementById('out-cost').innerText = "$" + internalTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+    // 6. INTERNAL CARD DISPLAY
+    document.getElementById('out-drums').innerText = `${sets} Sets (${Math.round(totalLbsWithWaste)} lbs incl. 12% waste)`;
+    document.getElementById('out-labor').innerText = `$${labor.toLocaleString()} (${CREW_SIZE} crew @ 10h)`;
+    
+    document.getElementById('out-travel').innerHTML = 
+        `$${travelTotal.toLocaleString()} <br>
+         <small style="font-size:9px; color:#777; font-weight:400;">(Hotel: $${hotel} | Food: $${food} | Fuel: $${fuel.toFixed(0)})</small>`;
+    
+    document.getElementById('out-cost').innerHTML = 
+        `$${internalTotal.toLocaleString(undefined, {minimumFractionDigits: 2})} 
+         <br><hr style="margin:8px 0; border:0; border-top:1px dashed #ddd;"> 
+         <span style="color:#28a745; font-size:14px;">Profit: $${profit.toLocaleString(undefined, {minimumFractionDigits: 2})}</span><br>
+         <span style="font-size:11px; font-weight:400;">Margin: ${margin.toFixed(1)}%</span>`;
 
     document.getElementById('results').style.display = 'block';
     setTimeout(() => {
