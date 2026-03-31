@@ -1,4 +1,4 @@
-# Beyond Group | Foam Project Estimator (v1.5)
+# Beyond Group | Foam Project Estimator (v1.0)
 
 ### **Overview**
 This is a high-performance web-based tool designed to automate industrial foam bidding. Instead of using "black box" calculations, this tool provides full transparency into the **Master Formula**, **Internal Cost Build**, and **Project Profitability**.
@@ -35,14 +35,15 @@ To ensure the numbers were "right," I itemized the travel costs:
 * **Fuel:** A round-trip calculation $$(Dist \times 2)$$ at a rate of **$0.75/km**.
 
 #### **4. Fixed Cost Transparency**
-I broke down the **$1,250** overhead mentioned in the brief into specific categories (PPE, Maintenance, Misc, Overhead) within the UI. This allows a team member to see exactly where the money is going rather than seeing one "scary" lump sum.
+I broke down the **$1,250** overhead into specific categories (PPE, Maintenance, Misc, Overhead) within the UI. This ensures the tool is an audit-ready internal tool, not just a calculator. This also allows a team member to see exactly where the money is going rather than seeing one "scary" lump sum.
 
 ---
 
 ### **Why I Made These Choices**
-* **User Interface:** I used a "Card" layout. The left card is **Client Facing** (for the Sales Rep to read over the phone), and the right card is **Internal Only** (for management to check margins).
-* **Scalability:** All rates (Fuel, Labor, Waste) are variables at the top of the script. As Beyond Group grows, the tool can be updated by changing one number, not rewriting the code.
-* **Bilingual Capability:** As a bilingual communicator (English/Spanish), I ensured the code is clean and structured so it could easily be localized into other languages if Beyond Group expands further.
+* **Brand Integration (The "Beyond" Support Widget):** I integrated a custom-built navigation widget that links directly to Beyond Group’s core resources (Divisions, Blogs, and Google Reviews). This ensures the tool functions as a central operational hub for the team.
+* **User Interface:** I used a "Card" layout. The left card is **Client Facing** (for sales communication), and the right card is **Internal Only** (for management margin analysis).
+* **Scalability:** All rates (Fuel, Labor, Waste) are variables at the top of the script. As Beyond Group grows, the tool can be updated in seconds by changing one number.
+* **Bilingual Capability:** As a bilingual communicator (English/Spanish), I ensured the code is clean and structured for easy localization if Beyond Group expands into international markets.
 
 ### **What I’d Build Next (Day 2 Features)**
 1.  **PDF Export:** A button to instantly generate a branded PDF quote to email the client.
