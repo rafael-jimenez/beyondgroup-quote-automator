@@ -52,4 +52,5 @@ I broke down the **$1,250** overhead into specific categories (PPE, Maintenance,
 
 ---
 [**View project**](https://beyondgroupquote-rafael.netlify.app/)
+---
 **Developed by Rafael Jimenez**
