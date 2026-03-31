@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond Group | Project Estimator</title>
+  <link rel="icon" type="image/png" href="/images/beyong icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="#home" class="logo-wrap">
+        <img src="/images/beyondlogo.svg" alt="Beyond Group Logo" class="brand-logo" />
+      </a>
+      <a href="https://www.beyondgroup.ca/" target="_blank" class="nav-btn">Beyond Website</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero-section">
+      <div class="container">
+        <h1 class="hero-title">Project Estimator</h1>
+        <p class="hero-subtitle">Industrial Revenue & Cost-Build Analysis</p>
+        
+        <div class="calc-card">
+          <p class="helper-text">* Numeric values only (Minimum 1)</p>
+          <div class="input-grid">
+            <div class="form-group">
+              <label>Project Volume (m³)</label>
+              <input type="number" id="in-vol" placeholder="e.g., 18">
+            </div>
+            <div class="form-group">
+              <label>Job Duration (Days)</label>
+              <input type="number" id="in-days" placeholder="e.g., 2">
+            </div>
+            <div class="form-group">
+              <label>One-Way Distance (km)</label>
+              <input type="number" id="in-dist" placeholder="e.g., 215">
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="calc-btn" onclick="calculate()">Generate Professional Bid</button>
+            <button class="reset-btn" onclick="resetAll()">Reset</button>
+          </div>
+        </div>
+
+        <div id="results" class="results-area" style="display: none;">
+          <div class="results-grid">
+            <div class="card client-card">
+              <div class="card-header">
+                <h3>Client Bid (2026)</h3>
+                <button class="copy-btn" onclick="copy('client')">Copy Bid</button>
+              </div>
+              <div id="copy-client">
+                <div class="row"><span>Foam Revenue:</span> <strong id="out-rev"></strong></div>
+                <div class="row"><span>Mobilization:</span> <strong>$2,200.00</strong></div>
+                <div class="row total"><span>Total Bid:</span> <strong id="out-total"></strong></div>
+                <div class="row future-price"><span>2027 Price (+4%):</span> <strong id="out-2027"></strong></div>
+              </div>
+            </div>
+
+            <div class="card internal-card">
+              <div class="card-header">
+                <h3>Internal Cost Build</h3>
+                <button class="copy-btn" onclick="copy('internal')">Copy Specs</button>
+              </div>
+              <div id="copy-internal">
+                <div class="row"><span>Material (Sets):</span> <strong id="out-drums"></strong></div>
+                <div class="row"><span>Labour:</span> <strong id="out-labor"></strong></div>
+                <div class="row"><span>Travel/Subs:</span> <strong id="out-travel"></strong></div>
+                <div class="row total"><span>Total Cost:</span> <strong id="out-cost"></strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="chat-widget">
+    <div class="chat-box" id="chat-box">
+        <div id="chat-loading" class="typing"><span></span><span></span><span></span></div>
+        <div id="chat-content"></div>
+    </div>
+    <div class="chat-trigger" onclick="openChat()">?</div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-text">
+      © 2026 Beyond Group Operations.
+      <br>
+      <span class="credit">Interface Developed by Rafael Jimenez</span>
+    </div>
+  </footer>
+</body>
+</html>
