@@ -51,4 +51,5 @@ I broke down the **$1,250** overhead into specific categories (PPE, Maintenance,
 3.  **Database Integration:** Saving bids to a dashboard to track close rates and historical pricing.
 
 ---
+[**View project**](https://beyondgroupquote-rafael.netlify.app/)
 **Developed by Rafael Jimenez**
