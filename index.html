@@ -12,7 +12,7 @@
 <body>
   <header class="navbar">
     <div class="navbar-content">
-      <a href="#home" class="logo-wrap">
+      <a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="logo-wrap">
         <img src="/images/beyondlogo.svg" alt="Beyond Group Logo" class="brand-logo" />
       </a>
       <a href="https://www.beyondgroup.ca/" target="_blank" class="nav-btn">Beyond Website</a>
@@ -52,7 +52,7 @@
             <div class="card client-card">
               <div class="card-header">
                 <h3>Client Bid (2026)</h3>
-                <button class="copy-btn" onclick="copy('client')">Copy Bid</button>
+                <button class="copy-btn" onclick="copy('client', event)">Copy Bid</button>
               </div>
               <div id="copy-client">
                 <div class="row"><span>Foam Revenue:</span> <strong id="out-rev"></strong></div>
@@ -65,7 +65,7 @@
             <div class="card internal-card">
               <div class="card-header">
                 <h3>Internal Cost Build</h3>
-                <button class="copy-btn" onclick="copy('internal')">Copy Specs</button>
+                <button class="copy-btn" onclick="copy('internal', event)">Copy Specs</button>
               </div>
               <div id="copy-internal">
                 <div class="row"><span>Material (Sets):</span> <strong id="out-drums"></strong></div>
@@ -80,12 +80,12 @@
     </section>
   </main>
 
-  <div class="chat-widget">
+  <div class="chat-widget" id="chat-container">
     <div class="chat-box" id="chat-box">
         <div id="chat-loading" class="typing"><span></span><span></span><span></span></div>
         <div id="chat-content"></div>
     </div>
-    <div class="chat-trigger" onclick="openChat()">?</div>
+    <div class="chat-trigger" onclick="openChat(event)">?</div>
   </div>
 
   <footer class="footer">
